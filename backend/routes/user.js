@@ -89,4 +89,21 @@ router.post("/sign-in", async (req, res) => {
   }
 });
 
+//Logout
+router.post("/logout", async (req, res) => {
+  res.clearCookie("podcasterUserToken", {
+    httpOnly: true,
+  });
+  res.status(200).json({ message: "Logged out" });
+});
+
+//check cookie present or not
+router.get("/check-cookie", async (req, res) => {
+  const token = req.cookies.podcasterUserToken;
+  if (token) {
+    res.status(200).json({ message: "true" });
+  }
+  res.status(200).json({ message: "false" });
+});
+
 module.exports = router;
