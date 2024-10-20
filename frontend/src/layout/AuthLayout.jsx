@@ -1,6 +1,6 @@
 import React from 'react'
 
-const mainLayout = () => {
+const AuthLayout = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const mainLayout = () => {
   )
 }
 
-export default mainLayout
+export default AuthLayout
