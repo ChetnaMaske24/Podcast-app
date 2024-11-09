@@ -1,7 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
+  const [Values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const change = (e) => {
+    const { name, values } = e.target;
+    setValues({ ...Values, [name]: values });
+  };
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:1000/api/v1/sign-up",
+        Values
+      );
+      console.log(res);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
   return (
     <div className="h-screen bg-green-100 flex items-center justify-center">
       <div className=" w-4/6 md:w-3/6 lg:w-2/6 flex flex-col items-center justify-center">
@@ -17,6 +38,8 @@ const Signup = () => {
               required
               placeholder="Username"
               name="username"
+              value={Values.username}
+              onChange={change}
             />
           </div>
           <div className="w-full flex flex-col mt-2">
@@ -27,6 +50,8 @@ const Signup = () => {
               required
               placeholder="Email"
               name="email"
+              value={Values.email}
+              onChange={change}
             />
           </div>
           <div className="w-full flex flex-col mt-2">
@@ -37,10 +62,15 @@ const Signup = () => {
               required
               placeholder="Password"
               name="password"
+              value={Values.password}
+              onChange={change}
             />
           </div>
           <div className="w-full flex flex-col mt-4">
-            <button className=" bg-green-900 font-semibold text-xl text-white rounded py-2">
+            <button
+              className=" bg-green-900 font-semibold text-xl text-white rounded py-2"
+              onClick={handleSubmit}
+            >
               {" "}
               Signup
             </button>
