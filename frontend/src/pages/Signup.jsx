@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [Values, setValues] = useState({
     username: "",
     email: "",
@@ -18,13 +21,14 @@ const Signup = () => {
         "http://localhost:1000/api/v1/sign-up",
         Values
       );
-      console.log(res);
+      navigate("/login");
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
   return (
     <div className="h-screen bg-green-100 flex items-center justify-center">
+      <ToastContainer position="top-center" draggable />
       <div className=" w-4/6 md:w-3/6 lg:w-2/6 flex flex-col items-center justify-center">
         <Link to="/" className="text-2xl font-bold">
           PODCASTER
