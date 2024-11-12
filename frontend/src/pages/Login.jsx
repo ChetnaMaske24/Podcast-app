@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Values, setValues] = useState({
     email: "",
@@ -21,6 +24,8 @@ const Login = () => {
         Values,
         { withCredentials: true }
       );
+      dispatch(authActions.login());
+      // console.log(res.data);
       navigate("/profile");
     } catch (error) {
       toast.error(error.response.data.message);
