@@ -103,19 +103,21 @@ router.post("/logout", async (req, res) => {
 router.get("/check-cookie", async (req, res) => {
   const token = req.cookies.podcasterUserToken;
   if (token) {
-    res.status(200).json({ message: "true" });
+    return res.status(200).json({ message: true });
   }
-  res.status(200).json({ message: "false" });
+  return res.status(200).json({ message: false });
 });
 
 //Route to fetch user details
-router.get("/user-details",authMiddleware, async (req, res) => {
+router.get("/user-details", authMiddleware, async (req, res) => {
   try {
-    const {email} =req.user;
-    const existingUser = await User.findOne({email:email}).select("-password")
+    const { email } = req.user;
+    const existingUser = await User.findOne({ email: email }).select(
+      "-password"
+    );
     return res.status(200).json({
-      user:existingUser,
-    })
+      user: existingUser,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
