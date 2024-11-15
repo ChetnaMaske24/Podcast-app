@@ -1,11 +1,21 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
+import ErrorPage from "./ErrorPage";
+import Header from "../components/Profile/Header";
 
 const Profile = () => {
+  const isLoggeddIn = useSelector((state) => state.auth.isLoggeIn);
   return (
     <div>
-      Profile
+      {isLoggeddIn ? (
+        <>
+          <Header />
+        </>
+      ) : (
+        <ErrorPage />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
